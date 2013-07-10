@@ -12,7 +12,7 @@ module.exports = function integer(i, j) {
 
 	return {
 		next: function() {
-			var value = Math.floor(i + (Math.random() * (j - i)));
+			var value = Math.floor(i + (Math.random() * (j - i + 1)));
 			return { value: value, done: false };
 		}
 	};
