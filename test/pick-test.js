@@ -1,4 +1,4 @@
-var gent = require('../gent')
+var gent = require('../gent');
 var pick = require('../generator/pick');
 var reporter = require('../reporter/console');
 

@@ -1,5 +1,5 @@
 var red, green, reset, gray;
-gray  = '\u001b[22m\u001b[37m'
+gray  = '\u001b[22m\u001b[37m';
 red   = '\u001b[31m';
 green = '\u001b[32m';
 reset = '\u001b[0m';

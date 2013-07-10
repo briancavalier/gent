@@ -10,5 +10,5 @@ module.exports = function(array) {
 				? { done: false, value: array[i++] }
 				: { done: true };
 		}
-	}
-}
+	};
+};

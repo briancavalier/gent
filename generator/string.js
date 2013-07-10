@@ -2,12 +2,10 @@ var pick = require('./pick');
 var take = require('./take');
 var reduce = require('./reduce');
 
-function string(len, chars) {
-	if(typeof chars === 'string') {
-		chars = pick(chars);
+module.exports = function string(len, segments) {
+	if(typeof segments === 'string') {
+		segments = pick(segments);
 	}
-
-	chars = take(len, chars);
 
 	return {
 		next: function() {
@@ -15,9 +13,9 @@ function string(len, chars) {
 				done: false,
 				value: reduce(function(s, c) {
 					return s + c;
-				}, '', chars)
-			}
+				}, '', take(segments, len))
+			};
 		}
-	}
-}
+	};
+};
 

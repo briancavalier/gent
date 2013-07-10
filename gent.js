@@ -4,6 +4,7 @@ var slice = uncurryThis([].slice);
 
 var reduce = require('./generator/reduce');
 var take = require('./generator/take');
+var next = require('./generator/next');
 var sequence = require('./generator/sequence');
 
 exports.runner = runner;
@@ -30,7 +31,7 @@ function suite(name, tests) {
 				}, [], tests)
 			};
 		}
-	}
+	};
 }
 
 function runner(aggregate, report) {
@@ -52,9 +53,9 @@ function test(name, check) {
 				result = { name: name, args: args, error: e };
 			}
 
-			return { done: false, value: result }
+			return { done: false, value: result };
 		}
-	}
+	};
 }
 
 function aggregator(categorize) {
@@ -84,16 +85,11 @@ function aggregator(categorize) {
 		outcome.push(result);
 
 		return results;
-	}
+	};
 }
 
 function run(check, args) {
 	return check.apply(this, args);
-}
-
-function next(x) {
-	return typeof x === 'object' && typeof x.next === 'function'
-		? x.next().value : x;
 }
 
 function nextarray(array) {

@@ -1,0 +1,33 @@
+{
+	"name": "gent",
+	"version": "0.1.0",
+	"description": "Generative testing",
+	"main": "gent.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "jshint ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/briancavalier/gent.git"
+	},
+	"keywords": [
+		"test",
+		"testing",
+		"tdd",
+		"quickcheck",
+		"quick check",
+		"generative testing"
+	],
+	"dependencies": {
+		"jshint": "~2"
+	},
+	"author": "brian@hovercraftstudios.com",
+	"license": "MIT",
+	"gitHead": "0f838fcaf8e99b8273d10bf52318d450aeb600dc",
+	"bugs": {
+		"url": "https://github.com/briancavalier/gent/issues"
+	}
+}

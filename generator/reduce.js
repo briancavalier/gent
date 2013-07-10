@@ -13,4 +13,4 @@ module.exports = function reduce(reducer, initial, generator) {
 
 		result = reducer(result, val.value);
 	}
-}
+};
