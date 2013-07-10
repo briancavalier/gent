@@ -42,7 +42,7 @@ function test(name, check) {
 }
 
 function assert(test) {
-	return runner(aggregator(), exception, test);
+	return runner(exception, aggregator(), test);
 }
 
 function exception(results) {
