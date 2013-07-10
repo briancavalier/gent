@@ -5,13 +5,12 @@ var reporter = require('../reporter/console');
 
 var chars = 'abcdefg';
 
-var run = gent.runner(gent.aggregator(), reporter);
+var run = gent.run.bind(gent, reporter, gent.aggregator());
 
-run(100, gent.test('should generate exact length', function(s) {
+run(gent.take(100, gent.test('should generate exact length', function(s) {
 	return s.length === 10;
-}, string(10, chars)));
+}, string(10, chars))));
 
-run(100, gent.test('should generate correct length', function(s) {
-	console.log(s);
+run(gent.take(100, gent.test('should generate correct length', function(s) {
 	return s.length <= 10;
-}, string(integer(10), chars)));
+}, string(integer(10), chars))));

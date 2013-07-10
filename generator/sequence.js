@@ -1,3 +1,5 @@
+var next = require('./next');
+
 module.exports = function(array) {
 	var len, i;
 
@@ -7,7 +9,7 @@ module.exports = function(array) {
 	return {
 		next: function() {
 			return i < len
-				? { done: false, value: array[i++] }
+				? { done: false, value: next(array[i++]) }
 				: { done: true };
 		}
 	};

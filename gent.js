@@ -7,8 +7,8 @@ var take = require('./generator/take');
 var next = require('./generator/next');
 var sequence = require('./generator/sequence');
 
-exports.runner = runner;
-exports.suite = suite;
+exports.run = runner;
+exports.assert = assert;
 exports.test = test;
 exports.aggregator = aggregator;
 
@@ -17,27 +17,11 @@ exports.char = require('./generator/char');
 exports.string = require('./generator/string');
 exports.pick = require('./generator/pick');
 
-function suite(name, tests) {
-	console.log(tests.length);
-	tests = sequence(tests);
+exports.take = require('./generator/take');
+exports.next = next;
 
-	return {
-		next: function() {
-			return {
-				name: name,
-				results: reduce(function(results, test) {
-					results.push(test.next().value);
-					return results;
-				}, [], tests)
-			};
-		}
-	};
-}
-
-function runner(aggregate, report) {
-	return function(n, test) {
-		return report(reduce(aggregate, {}, take(test, n >>> 0)));
-	};
+function runner(report, aggregate, test) {
+	return report(reduce(aggregate, {}, test));
 }
 
 function test(name, check) {
@@ -57,6 +41,25 @@ function test(name, check) {
 		}
 	};
 }
+
+function assert(test) {
+	return runner(aggregator(), exception, test);
+}
+
+function exception(results) {
+	Object.keys(results).forEach(function(key) {
+		var category, total;
+
+		category = results[key];
+		total = category.fail.length + category.pass.length;
+
+		if(category.fail.length) {
+			throw new Error(category.name + ' [' + total + ' tests, '
+				+ category.pass.length + ' passed, '
+				+ category.fail.length + ' failed]');
+		}
+	});
+};
 
 function aggregator(categorize) {
 	if(typeof categorize !== 'function') {

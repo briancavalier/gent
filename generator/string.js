@@ -13,7 +13,7 @@ module.exports = function string(len, segments) {
 				done: false,
 				value: reduce(function(s, c) {
 					return s + c;
-				}, '', take(segments, len))
+				}, '', take(len, segments))
 			};
 		}
 	};
