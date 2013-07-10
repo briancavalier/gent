@@ -4,7 +4,7 @@ var slice = uncurryThis([].slice);
 
 var reduce = require('./generator/reduce');
 var take = require('./generator/take');
-var array = require('./generator/array');
+var sequence = require('./generator/sequence');
 
 exports.runner = runner;
 exports.suite = suite;
@@ -14,10 +14,11 @@ exports.aggregator = aggregator;
 exports.integer = require('./generator/integer');
 exports.char = require('./generator/char');
 exports.string = require('./generator/string');
+exports.pick = require('./generator/pick');
 
 function suite(name, tests) {
 	console.log(tests.length);
-	tests = array(tests);
+	tests = sequence(tests);
 
 	return {
 		next: function() {

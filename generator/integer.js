@@ -4,7 +4,7 @@ module.exports = function integer(i, j) {
 		i = 0;
 	}
 
-	if(j > i) {
+	if(i > j) {
 		var tmp = j;
 		j = i;
 		i = tmp;
@@ -12,7 +12,8 @@ module.exports = function integer(i, j) {
 
 	return {
 		next: function() {
-			return { value: Math.floor(i + (Math.random() * (j - i))), done: false };
+			var value = Math.floor(i + (Math.random() * (j - i)));
+			return { value: value, done: false };
 		}
 	};
 };
