@@ -5,7 +5,6 @@ var slice = uncurryThis([].slice);
 var reduce = require('./generator/reduce');
 var take = require('./generator/take');
 var next = require('./generator/next');
-var sequence = require('./generator/sequence');
 
 exports.run = runner;
 exports.assert = assert;
@@ -17,7 +16,7 @@ exports.char = require('./generator/char');
 exports.string = require('./generator/string');
 exports.pick = require('./generator/pick');
 
-exports.take = require('./generator/take');
+exports.take = take;
 exports.next = next;
 
 function runner(report, aggregate, test) {
@@ -59,7 +58,7 @@ function exception(results) {
 				+ category.fail.length + ' failed]');
 		}
 	});
-};
+}
 
 function aggregator(categorize) {
 	if(typeof categorize !== 'function') {

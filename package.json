@@ -7,7 +7,7 @@
 		"test": "test"
 	},
 	"scripts": {
-		"test": "jshint ."
+		"test": "jshint . && ls -1 test/*.js | xargs -n 1 node"
 	},
 	"repository": {
 		"type": "git",
@@ -26,7 +26,6 @@
 	},
 	"author": "brian@hovercraftstudios.com",
 	"license": "MIT",
-	"gitHead": "0f838fcaf8e99b8273d10bf52318d450aeb600dc",
 	"bugs": {
 		"url": "https://github.com/briancavalier/gent/issues"
 	}
