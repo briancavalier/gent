@@ -4,5 +4,8 @@ var integer = require('./integer');
 var string = require('./string');
 
 module.exports = function() {
-	return pick([true, number(), integer(), string(), {}, [], Infinity, -Infinity]);
+	return pick([true, number(), integer(), string(),
+		{}, [], f, Infinity, -Infinity]);
 };
+
+function f(x) { return x; }
