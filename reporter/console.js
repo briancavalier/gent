@@ -21,7 +21,7 @@ module.exports = function reporter(results) {
 	return Object.keys(failures).reduce(function(failures, key) {
 		var category = failures[key];
 		category.fail.forEach(function(failure) {
-			console.error('\tinputs: ' + failure.args.join(', '));
+			console.error('\tinputs: [' + failure.args.join(', ') + ']');
 		});
 
 		return failures;

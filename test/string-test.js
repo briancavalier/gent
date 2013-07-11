@@ -14,3 +14,7 @@ run(gent.take(100, gent.test('should generate exact length', function(s) {
 run(gent.take(100, gent.test('should generate correct length', function(s) {
 	return s.length <= 10;
 }, string(integer(10), chars))));
+
+run(gent.take(100, gent.test('should generate strings w/o args', function(s) {
+	return typeof s === 'string';
+}, string())));

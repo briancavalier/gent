@@ -4,13 +4,12 @@ module.exports = function(array) {
 	var len, i;
 
 	len = array.length >>> 0;
-	i = 0;
+	i = -1;
 
 	return {
 		next: function() {
-			return i < len
-				? { done: false, value: next(array[i++]) }
-				: { done: true };
+			i = (i + 1) % len;
+			return { done: false, value: next(array[i]) };
 		}
 	};
 };

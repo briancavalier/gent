@@ -2,13 +2,11 @@ module.exports = function integer(i, j) {
 	if(arguments.length === 0) {
 		i = 0;
 		j = Number.MAX_VALUE;
-	} else if(arguments.length === 1) {
+	}
+	if(arguments.length === 1) {
 		j = i;
 		i = 0;
 	}
-
-	i = Math.ceil(i);
-	j = Math.floor(j);
 
 	if(i > j) {
 		var tmp = j;
@@ -18,7 +16,7 @@ module.exports = function integer(i, j) {
 
 	return {
 		next: function() {
-			var value = i + Math.floor(Math.random() * (j - i));
+			var value = i + (Math.random() * (j - i));
 			return { value: value, done: false };
 		}
 	};
