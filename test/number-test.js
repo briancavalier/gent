@@ -13,3 +13,7 @@ run(gent.take(100, gent.test('should produce values in range w/o lower bound', f
 	return typeof a === 'number'
 		&& a >= 0 && a < 10;
 }, number(10))));
+
+run(gent.take(1000, gent.test('should generate positive numbers w/o args', function(a) {
+	return typeof a === 'number' && a >= 0;
+}, number())));
