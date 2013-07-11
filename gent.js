@@ -7,7 +7,6 @@ var take = require('./generator/take');
 var next = require('./generator/next');
 
 exports.run = runner;
-exports.assert = assert;
 exports.test = test;
 exports.aggregator = aggregator;
 
@@ -39,25 +38,6 @@ function test(name, check) {
 			return { done: false, value: result };
 		}
 	};
-}
-
-function assert(test) {
-	return runner(exception, aggregator(), test);
-}
-
-function exception(results) {
-	Object.keys(results).forEach(function(key) {
-		var category, total;
-
-		category = results[key];
-		total = category.fail.length + category.pass.length;
-
-		if(category.fail.length) {
-			throw new Error(category.name + ' [' + total + ' tests, '
-				+ category.pass.length + ' passed, '
-				+ category.fail.length + ' failed]');
-		}
-	});
 }
 
 function aggregator(categorize) {

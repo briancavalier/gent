@@ -1,14 +1,18 @@
-module.exports = function(results) {
-	Object.keys(results).forEach(function(key) {
-		var category, total;
-
-		category = results[key];
-		total = category.fail.length + category.pass.length;
-
+module.exports = function exception(results) {
+	var failures = Object.keys(results).reduce(function(failures, key) {
+		var category = results[key];
 		if(category.fail.length) {
-			throw new Error(category.name + ' [' + total + ' tests, '
-				+ category.pass.length + ' passed, '
-				+ category.fail.length + ' failed]');
+			failures = failures.concat(category.fail.map(function(failure) {
+				return '[' + failure.args.join(', ') + ']';
+			}));
 		}
-	});
+
+		return failures;
+	}, []);
+
+	if(failures.length) {
+		throw new Error('Failed inputs: ' + failures.join(', '));
+	}
+
+	return true;
 };

@@ -6,7 +6,7 @@ var reduce = require('./reduce');
 
 module.exports = function string(len, segments) {
 	if(arguments.length < 2) {
-		segments = char(' ', '~');
+		segments = char(32, 127);
 	}
 
 	if(arguments.length < 1) {

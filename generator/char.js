@@ -1,21 +1,30 @@
 var integer = require('./integer');
 var pick = require('./pick');
-var charStart = 'a'.charCodeAt(0);
 
 module.exports = function char(i, j) {
 	var index;
-	if (arguments.length < 2) {
+	
+	if(typeof i === 'string') {
 		return pick(i);
-	} else {
-		index = integer(i.charCodeAt(0), j.charCodeAt(0));
-
-		return {
-			next: function () {
-				return {
-					done: false,
-					value: String.fromCharCode(charStart + index.next().value)
-				};
-			}
-		};
 	}
+
+	if(arguments.length < 2) {
+		j = 127;
+	}
+	if(arguments.length < 1) {
+		i = 32;
+	}
+
+	index = integer(
+		typeof i === 'number' ? i : i.charCodeAt(0),
+		typeof j === 'number' ? j : j.charCodeAt(0));
+
+	return {
+		next: function () {
+			return {
+				done: false,
+				value: String.fromCharCode(index.next().value)
+			};
+		}
+	};
 };
