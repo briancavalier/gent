@@ -6,18 +6,18 @@ maxIterations = 100;
 buster = require('buster');
 gent = require('../../gent');
 
-buster.assertions.add("validClaim", {
+buster.assertions.add('validClaim', {
 	assert: assertValidClaim,
-	assertMessage: "Expected inputs to pass: ${failures}",
-	refuteMessage: "Expected inputs to fail: ${failures}",
-	expectation: "toBeUpheld"
+	assertMessage: 'Expected inputs to pass: ${failures}',
+	refuteMessage: 'Expected inputs to fail: ${failures}',
+	expectation: 'toBeUpheld'
 });
 
-buster.assertions.add("claim", {
+buster.assertions.add('claim', {
 	assert: assertClaim,
-	assertMessage: "Expected inputs to pass: ${failures}",
-	refuteMessage: "Expected inputs to fail: ${failures}",
-	expectation: "toBeUpheld"
+	assertMessage: 'Expected inputs to pass: ${failures}',
+	refuteMessage: 'Expected inputs to fail: ${failures}',
+	expectation: 'toBeUpheld'
 });
 
 function assertClaim() {

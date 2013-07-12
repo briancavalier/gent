@@ -5,7 +5,5 @@ var string = require('./string');
 
 module.exports = function() {
 	return pick([true, number(), integer(), string(),
-		{}, [], f, Infinity, -Infinity]);
+		{}, [], function(){}, Infinity, -Infinity]);
 };
-
-function f(x) { return x; }

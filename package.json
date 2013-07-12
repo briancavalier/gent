@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jshint . && ls -1 test/*.js | xargs -n 1 node"
+    "test": "jshint . && node test/runner ./test/*-test.js"
   },
   "repository": {
     "type": "git",
