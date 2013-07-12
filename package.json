@@ -1,32 +1,33 @@
 {
-	"name": "gent",
-	"version": "0.1.1",
-	"description": "Generative testing",
-	"main": "gent.js",
-	"directories": {
-		"test": "test"
-	},
-	"scripts": {
-		"test": "jshint . && ls -1 test/*.js | xargs -n 1 node"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/briancavalier/gent.git"
-	},
-	"keywords": [
-		"test",
-		"testing",
-		"tdd",
-		"quickcheck",
-		"quick check",
-		"generative testing"
-	],
-	"dependencies": {
-		"jshint": "~2"
-	},
-	"author": "brian@hovercraftstudios.com",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/briancavalier/gent/issues"
-	}
+  "name": "gent",
+  "version": "0.1.1",
+  "description": "Generative testing",
+  "main": "gent.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jshint . && ls -1 test/*.js | xargs -n 1 node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/briancavalier/gent.git"
+  },
+  "keywords": [
+    "test",
+    "testing",
+    "tdd",
+    "quickcheck",
+    "quick check",
+    "generative testing"
+  ],
+  "dependencies": {
+    "jshint": "~2",
+    "glob": "~3.2.3"
+  },
+  "author": "brian@hovercraftstudios.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/briancavalier/gent/issues"
+  }
 }

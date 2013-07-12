@@ -31,7 +31,11 @@ module.exports = function reporter(results) {
 function format(category) {
 	var name, total;
 
-	name = lightgray + category.name + reset;
+	name = category.test == category.category
+		? category.test
+		: category.test + ': ' + category.category;
+
+	name = lightgray + name + reset;
 	total = category.fail.length + category.pass.length;
 
 	if(category.fail.length) {
