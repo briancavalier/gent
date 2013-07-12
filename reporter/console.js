@@ -44,7 +44,7 @@ function format(category) {
 		name = green + '\u2713 ' + name;
 	}
 
-	return name + cyan + ' [' + total + ' tests, '
+	return '  ' + name + cyan + ' [' + total + ' tests, '
 		+ category.pass.length + ' passed, '
 		+ category.fail.length + ' failed]' + reset;
 }

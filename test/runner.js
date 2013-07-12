@@ -8,7 +8,11 @@ var maxIterations = 100;
 
 glob(process.argv[process.argv.length - 1], function(e, files) {
 	files.forEach(function(file) {
-		var claims = require(path.resolve(file.replace(/\.js$/, '')));
+		file = file.replace(/\.js$/, '');
+
+		console.log(path.basename(file));
+
+		var claims = require(path.resolve(file));
 		run(claims, {});
 	});
 });
