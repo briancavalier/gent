@@ -1,22 +1,43 @@
-module.exports = function integer(i, j) {
+var reasonableMax, epsilon;
+
+reasonableMax = 1e8;
+epsilon = 1e-5;
+
+module.exports = number;
+
+number.MAX = Number.MAX_Value;
+
+number.positive = function(max) {
+	return generate(epsilon, arguments.length === 0 ? reasonableMax : max);
+};
+
+number.negative = function(min) {
+	return generate(arguments.length === 0 ? -reasonableMax : min, -epsilon);
+};
+
+function number(min, max) {
 	if(arguments.length === 0) {
-		i = 1;
-		j = Number.MAX_VALUE;
+		min = 0;
+		max = reasonableMax;
 	} else if(arguments.length === 1) {
-		j = i;
-		i = 1;
+		max = min;
+		min = 0;
 	}
 
-	if(i > j) {
-		var tmp = j;
-		j = i;
-		i = tmp;
+	return generate(min, max);
+}
+
+function generate(min, max) {
+	if(min > max) {
+		var tmp = max;
+		max = min;
+		min = tmp;
 	}
 
 	return {
 		next: function() {
-			var value = i + (Math.random() * (j - i));
+			var value = min + (Math.random() * (max - min));
 			return { value: value, done: false };
 		}
 	};
-};
+}

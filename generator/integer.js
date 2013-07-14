@@ -1,27 +1,46 @@
-var max = Math.pow(2, 10);
+var MAX, reasonableMax;
 
-module.exports = function integer(i, j) {
+MAX = Math.pow(2, 53);
+reasonableMax = 1e3;
+
+module.exports = integer;
+
+integer.MAX = MAX;
+
+integer.positive = function(max) {
+	return generate(1, arguments.length === 0 ? reasonableMax : max);
+};
+
+integer.negative = function(min) {
+	return generate(arguments.length === 0 ? -reasonableMax : min, -1);
+};
+
+function integer(min, max) {
 	if(arguments.length === 0) {
-		i = 1;
-		j = max;
+		min = 0;
+		max = reasonableMax;
 	} else if(arguments.length === 1) {
-		j = i;
-		i = 1;
+		max = min;
+		min = 0;
 	}
 
-	i = Math.ceil(i);
-	j = Math.floor(j);
+	return generate(min, max);
+}
 
-	if(i > j) {
-		var tmp = j;
-		j = i;
-		i = tmp;
+function generate(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+
+	if(min > max) {
+		var tmp = max;
+		max = min;
+		min = tmp;
 	}
 
 	return {
 		next: function() {
-			var value = i + Math.floor(Math.random() * (j - i));
+			var value = min + Math.floor(Math.random() * (max - min));
 			return { value: value, done: false };
 		}
 	};
-};
+}
