@@ -18,11 +18,14 @@ exports.aggregate.byCategory = aggregate.bind(void 0, aggregateByCategory);
 exports.any      = require('./generator/any');
 exports.truthy   = require('./generator/truthy');
 exports.falsy    = require('./generator/falsy');
-exports.number   = require('./generator/number');
-exports.integer  = require('./generator/integer');
+
+exports.array    = require('./generator/array');
 exports.bool     = require('./generator/bool');
 exports.char     = require('./generator/char');
+exports.integer  = require('./generator/integer');
+exports.number   = require('./generator/number');
 exports.string   = require('./generator/string');
+
 exports.sequence = require('./generator/sequence');
 exports.pick     = require('./generator/pick');
 

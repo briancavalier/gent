@@ -1,7 +1,13 @@
 var pick = require('./pick');
-var truthy = require('./truthy');
-var falsy = require('./falsy');
+var bool = require('./bool');
+var char = require('./char');
+var integer = require('./integer');
+var number = require('./number');
+var string = require('./string');
 
 module.exports = function() {
-	return pick([truthy(), falsy()]);
+	return pick([
+		bool(), char(), integer(), number(), string(),
+		function(){}, Infinity, -Infinity
+	]);
 };
