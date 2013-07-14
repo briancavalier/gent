@@ -2,9 +2,9 @@ var gent = require('../gent');
 var reporter = require('../reporter/console');
 var glob = require('glob');
 var path = require('path');
+var confidence = require('../generator/confidence');
 
-// TODO: Remove in favor of adaptive analysis
-var maxIterations = 100;
+var maxIterations = 10000;
 
 glob(process.argv[process.argv.length - 1], function(e, files) {
 	files.forEach(function(file) {
@@ -28,6 +28,6 @@ function run(claims, options) {
 	options.aggregate = options.aggregate || gent.aggregate.byCategory;
 
 	claims.forEach(function(claim) {
-		reporter(gent.test(claim, options));
+		reporter(gent.test(confidence(claim, options.confidence), options));
 	});
 }

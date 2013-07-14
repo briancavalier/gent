@@ -19,9 +19,16 @@ module.exports = function reporter(results) {
 	}, {});
 
 	return Object.keys(failures).reduce(function(failures, key) {
-		var category = failures[key];
+		var category, prefix;
+
+		category = failures[key];
+		prefix = red + '    FAILED: ' + lightgray + '[';
 		category.fail.forEach(function(failure) {
-			console.error('\tinputs: [' + JSON.stringify(failure.args) + ']');
+			var info = failure.args.join(', ') + ']' + reset;
+			if(failure.error) {
+				info += red + ', error: ' + failure.error + reset;
+			}
+			console.error(info);
 		});
 
 		return failures;

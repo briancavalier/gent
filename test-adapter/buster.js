@@ -1,10 +1,10 @@
-var buster, gent, maxIterations;
+var buster, gent, confidence, maxIterations;
 
-// TODO: Remove in favor of adaptive analysis
-maxIterations = 100;
+maxIterations = 10000;
 
 buster = require('buster');
-gent = require('../../gent');
+gent = require('../gent');
+confidence = require('../generator/confidence');
 
 buster.assertions.add('validClaim', {
 	assert: assertValidClaim,
@@ -26,7 +26,7 @@ function assertClaim() {
 }
 
 function assertValidClaim(claim, options) {
-	var failures = checkGentResults(gent.test(claim, options));
+	var failures = checkGentResults(gent.test(confidence(claim, options.confidence), options));
 
 	if(failures.length) {
 		this.failures = failures.join(', ');
@@ -41,7 +41,11 @@ function checkGentResults(results) {
 		var category = results[key];
 		if(category.fail.length) {
 			failures = failures.concat(category.fail.map(function(failure) {
-				return '{ args: ' + failure.args.join(', ') + ', result: ' + (failure.result || failure.error) + ' }';
+				var args = '{ args: [' + failure.args.join(', ') + ']';
+				if(failure.error) {
+					args += ', error: ' + failure.error;
+				}
+				return args + ' }';
 			}));
 		}
 
