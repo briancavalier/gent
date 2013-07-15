@@ -1,7 +1,6 @@
 module.exports = function reduce(reducer, initial, generator) {
 	var result, val;
 
-	val = {};
 	result = initial;
 
 	while(true) {

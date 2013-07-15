@@ -1,4 +1,4 @@
-var defaultConfidence = 0.99;
+var defaultConfidence = 0.975;
 
 module.exports = function(generator, confidence) {
 

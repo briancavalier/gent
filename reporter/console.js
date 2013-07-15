@@ -24,7 +24,7 @@ module.exports = function reporter(results) {
 		category = failures[key];
 		prefix = red + '    FAILED: ' + lightgray + '[';
 		category.fail.forEach(function(failure) {
-			var info = prefix + failure.args.join(', ') + ']' + reset;
+			var info = prefix + JSON.stringify(failure.args) + ']' + reset;
 			if(failure.error) {
 				info += red + ', error: ' + failure.error + reset;
 			}
