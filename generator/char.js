@@ -1,6 +1,12 @@
 var integer = require('./integer');
 var pick = require('./pick');
 
+/**
+ * Generator character (string length 1) values
+ * @param i
+ * @param j
+ * @returns {*}
+ */
 module.exports = function char(i, j) {
 	var index;
 

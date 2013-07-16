@@ -13,14 +13,30 @@ module.exports = integer;
 integer.MAX = MAX;
 integer.MIN = -MAX;
 
+/**
+ * Generates positive integers
+ * @param {number} max generate integers < max
+ * @returns {{next: Function}} integers 1 <= x < max
+ */
 integer.positive = function(max) {
 	return generate(1, arguments.length === 0 ? reasonableMax : max);
 };
 
+/**
+ * Generates negative integers
+ * @param {number} min generate integers >= min
+ * @returns {{next: Function}} integers min <= x <= -1
+ */
 integer.negative = function(min) {
 	return generate(arguments.length === 0 ? -reasonableMax : min, -1);
 };
 
+/**
+ * Generates integers
+ * @param {number} min generate integers >= min
+ * @param {number} max generate integers < max
+ * @returns {{next: Function}}
+ */
 function integer(min, max) {
 	if(arguments.length === 0) {
 		min = 0;
@@ -34,5 +50,5 @@ function integer(min, max) {
 }
 
 function generate(min, max) {
-	return map(Math.floor, number(Math.ceil(min), Math.floor(max)));
+	return map(Math.floor, number(Math.ceil(min), max));
 }

@@ -9,6 +9,12 @@ sequence = require('./sequence');
 
 module.exports = array;
 
+/**
+ * Generates arrays
+ * @param {number|{{next: Function}}} len length of each array
+ * @param {{next: Function}} generator
+ * @returns {{next: Function}} iterator over arrays
+ */
 function array(len, generator) {
 	if(Array.isArray(len)) {
 		generator = sequence(len);
