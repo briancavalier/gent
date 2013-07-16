@@ -1,5 +1,5 @@
 /**
- * Default random number iterator
+ * Default infinite random number iterator
  * @returns {{next: Function}}
  */
 module.exports = function() {

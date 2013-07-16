@@ -2,13 +2,17 @@ var pick = require('./pick');
 var number = require('./number');
 var integer = require('./integer');
 var string = require('./string');
-var array = require('./array');
 
+/**
+ * Generates truthy values
+ * @returns {true|object|array|function|}
+ */
 module.exports = function() {
 	return pick([
-		true, {}, array(), function(){}, Infinity, -Infinity,
-		pick([number.positive(), number.negative()]),
+		true,
 		pick([integer.positive(), integer.negative()]),
-		string(integer(1, 10))
+		pick([number.positive(), number.negative()]),
+		string(integer(1, 10)),
+		pick([Infinity, -Infinity])
 	]);
 };

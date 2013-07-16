@@ -1,5 +1,11 @@
 var next = require('./next');
 
+/**
+ * Generates items by looping over the supplied array, which may
+ * contain values or iterators.
+ * @param {array} array
+ * @returns {{next: Function}}
+ */
 module.exports = function(array) {
 	var len, i;
 
