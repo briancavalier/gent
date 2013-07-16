@@ -1,4 +1,6 @@
-var reasonableMax, epsilon;
+var random, reasonableMax, epsilon;
+
+random = require('./random')();
 
 reasonableMax = 1e8;
 epsilon = Number.MIN_VALUE;
@@ -37,7 +39,7 @@ function generate(min, max) {
 
 	return {
 		next: function() {
-			var value = min + (Math.random() * (max - min));
+			var value = min + (random.next().value * (max - min));
 			return { value: value, done: false };
 		}
 	};

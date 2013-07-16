@@ -7,7 +7,6 @@ var string = require('./string');
 
 module.exports = function() {
 	return pick([
-		bool(), char(), integer(), number(), string(),
-		function(){}, Infinity, -Infinity
+		bool(), char(), integer(), number(), string(), Infinity, -Infinity
 	]);
 };
