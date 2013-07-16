@@ -1,11 +1,12 @@
 var reasonableMax, epsilon;
 
 reasonableMax = 1e8;
-epsilon = 1e-5;
+epsilon = Number.MIN_VALUE;
 
 module.exports = number;
 
 number.MAX = Number.MAX_Value;
+number.MIN = -Number.MAX_Value;
 
 number.positive = function(max) {
 	return generate(epsilon, arguments.length === 0 ? reasonableMax : max);
