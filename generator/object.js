@@ -9,7 +9,22 @@ var take = require('./take');
 // object(n) -> object with n string() keys, each w/any() value
 // object(n, keys) -> object with n keys(), each w/any() value
 // object(n, keys, values) -> object with n keys(), each with values() value
-module.exports = function object(nkeys, keys, values) {
+module.exports = object;
+
+object.template = function(template) {
+	return {
+		next: function() {
+			var value = Object.keys(template).reduce(function(obj, key) {
+				obj[key] = next(template[key]);
+				return obj;
+			}, {});
+
+			return { done: false, value: value };
+		}
+	};
+};
+
+function object(nkeys, keys, values) {
 
 	if(typeof nkeys === 'undefined') {
 		nkeys = integer(10);
@@ -33,4 +48,4 @@ module.exports = function object(nkeys, keys, values) {
 			return { done: false, value: value };
 		}
 	};
-};
+}

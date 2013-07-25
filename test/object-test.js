@@ -16,5 +16,10 @@ module.exports = [
 		return Object.keys(o).reduce(function(ok, key) {
 			return ok && o[key] === sentinel;
 		}, true);
-	}, object(100, gent.sequence(['a', 'b', 'c']), sentinel))
+	}, object(100, gent.sequence(['a', 'b', 'c']), sentinel)),
+
+	gent.claim('generates same keys as template', function(o) {
+		return o.hasOwnProperty('a') && o.hasOwnProperty('b')
+			&& typeof o.a === 'number' && typeof o.b === 'boolean';
+	}, object.template({ a: gent.integer(10), b: true }))
 ];

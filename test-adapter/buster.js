@@ -1,6 +1,7 @@
-var buster, gent, confidence, maxIterations;
+var buster, gent, confidence, maxIterations, maxReportErrors;
 
 maxIterations = 10000;
+maxReportErrors = 10;
 
 buster = require('buster');
 gent = require('../gent');
@@ -21,15 +22,20 @@ buster.assertions.add('claim', {
 });
 
 function assertClaim() {
-	return assertValidClaim(gent.claim.apply(gent, arguments),
+	return assertValidClaim.call(this, gent.claim.apply(gent, arguments),
 		{ iterations: maxIterations });
 }
 
 function assertValidClaim(claim, options) {
 	var failures = checkGentResults(gent.test(confidence(claim, options.confidence), options));
 
-	if(failures.length) {
-		this.failures = failures.join(', ');
+	var count = failures.length;
+	if(count) {
+
+		this.failures = failures.slice(0, maxReportErrors).join('');
+		if(count > maxReportErrors) {
+			this.failures += '\n\t... and ' + (count-10) + ' more ...';
+		}
 		return false;
 	}
 
@@ -41,11 +47,11 @@ function checkGentResults(results) {
 		var category = results[key];
 		if(category.fail.length) {
 			failures = failures.concat(category.fail.map(function(failure) {
-				var args = '{ args: [' + failure.args.join(', ') + ']';
+				var args = '\n\t[' + failure.args.join(', ') + ']';
 				if(failure.error) {
 					args += ', error: ' + failure.error;
 				}
-				return args + ' }';
+				return args;
 			}));
 		}
 
