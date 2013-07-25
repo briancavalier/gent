@@ -24,6 +24,7 @@ exports.bool     = require('./generator/bool');
 exports.char     = require('./generator/char');
 exports.integer  = require('./generator/integer');
 exports.number   = require('./generator/number');
+exports.object   = require('./generator/object');
 exports.string   = require('./generator/string');
 
 exports.sequence = require('./generator/sequence');

@@ -32,6 +32,6 @@ module.exports = [
 	gent.claim('generates array based  template', function(o) {
 		return o.hasOwnProperty('a') && o.hasOwnProperty('b')
 			&& typeof o.a === 'number' && typeof o.b === 'boolean';
-	}, object.template({ a: gent.integer(10), b: true }))
+	}, gent.object.template({ a: gent.integer(10), b: true }))
 
 ];
