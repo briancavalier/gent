@@ -7,14 +7,14 @@ buster = require('buster');
 gent = require('../gent');
 confidence = require('../generator/confidence');
 
-buster.assertions.add('validClaim', {
+buster.referee.add('validClaim', {
 	assert: assertValidClaim,
 	assertMessage: 'Expected inputs to pass: ${failures}',
 	refuteMessage: 'Expected inputs to fail: ${failures}',
 	expectation: 'toBeUpheld'
 });
 
-buster.assertions.add('claim', {
+buster.referee.add('claim', {
 	assert: assertClaim,
 	assertMessage: 'Expected inputs to pass: ${failures}',
 	refuteMessage: 'Expected inputs to fail: ${failures}',
