@@ -17,7 +17,7 @@ module.exports = function string(len, segments) {
 		segments = char(32, 127);
 	}
 
-	if(arguments.length < 1) {
+	if(arguments.length === 0) {
 		len = integer(32);
 	}
 

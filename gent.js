@@ -54,37 +54,41 @@ function claim() {
 
 	return {
 		next: function() {
-			var result, args;
+			var args = nextarray(argGenerators);
+			var result = { test: name, args: args, value: void 0, error: void 0, time: 0 };
+			var start = Date.now();
 
-			args = nextarray(argGenerators);
-			result = { test: name, args: args };
+			tryClaim(assertion, args, result);
 
-			try {
-				result.value = runOne(assertion, args);
-			} catch(e) {
-				result.error = e;
-			}
+			result.time = Date.now() - start;
 
 			return { done: false, value: result };
 		}
 	};
 }
 
-function test(claim, options) {
-	var aggregator, categorizer;
+function tryClaim(assertion, args, outResult) {
+	try {
+		outResult.value = runOne(assertion, args);
+	} catch(e) {
+		outResult.error = e;
+	}
+}
 
+function test(claim, options) {
+	/*jshint maxcomplexity:6*/
 	if(!options) {
 		options = {};
 	}
 
-	if(options.take) {
+	var categorizer = options.categorize || categorize.byTest;
+	var aggregator = options.aggregate || aggregate.byCategory;
+
+	if(typeof options.take === 'function') {
 		claim = options.take(claim);
 	} else if(typeof options.iterations === 'number') {
 		claim = take(options.iterations, claim);
 	}
-
-	categorizer = options.categorize || categorize.byTest;
-	aggregator = options.aggregate || aggregate.byCategory;
 
 	return aggregator(categorizer(claim));
 }
@@ -131,15 +135,15 @@ function aggregateByCategory(results, result) {
 			category: category,
 			test: result.test,
 			pass: [],
-			fail: []
+			fail: [],
+			time: 0
 		};
 	}
 
-	outcome = 'value' in result && !!result.value
-		? outcome.pass
-		: outcome.fail;
+	outcome.time += result.time;
+	var outcomeType = result.error != null ? outcome.fail : outcome.pass;
 
-	outcome.push(result);
+	outcomeType.push(result);
 
 	return results;
 }

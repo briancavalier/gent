@@ -9,14 +9,11 @@ var defaultConfidence = 0.975;
  *  number of items required to reach the supplied confidence level
  */
 module.exports = function(generator, confidence) {
-
-	var iterations;
-
 	if(typeof confidence !== 'number') {
 		confidence = defaultConfidence;
 	}
 
-	iterations = Math.round(1 / Math.pow(1-confidence, 2));
+	var iterations = Math.round(1 / Math.pow(1-confidence, 2));
 
 	return {
 		next: function() {

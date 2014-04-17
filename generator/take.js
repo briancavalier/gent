@@ -11,7 +11,7 @@ module.exports = function take(n, iterator) {
 	return {
 		next: function() {
 			n -= 1;
-			return n >= 0 ? iterator.next() : { done: true };
+			return n >= 0 ? iterator.next() : { done: true, value: void 0 };
 		}
 	};
 };

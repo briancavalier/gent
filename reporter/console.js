@@ -53,5 +53,5 @@ function format(category) {
 
 	return '  ' + name + cyan + ' [' + total + ' tests, '
 		+ category.pass.length + ' passed, '
-		+ category.fail.length + ' failed]' + reset;
+		+ category.fail.length + ' failed, ' + category.time + 'ms]' + reset;
 }
