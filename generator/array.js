@@ -1,11 +1,8 @@
-var integer, any, next, take, reduce, sequence;
-
-integer = require('./integer');
-any = require('./any');
-next = require('./next');
-take = require('./take');
-reduce = require('./reduce');
-sequence = require('./sequence');
+var integer = require('./integer');
+var any = require('./any');
+var take = require('./take');
+var reduce = require('./reduce');
+var sequence = require('./sequence');
 
 module.exports = array;
 
@@ -20,23 +17,23 @@ function array(len, generator) {
 		generator = sequence(len);
 		len = len.length;
 	} else {
-		if(typeof len !== 'number') {
-			generator = len;
-			len = integer(10);
-		}
 		if(typeof generator === 'undefined') {
 			generator = any();
+		}
+		if(typeof len === 'undefined') {
+			len = integer(10);
 		}
 	}
 
 	return {
 		next: function() {
-			var a = reduce(function(a, x) {
-				a.push(x);
-				return a;
-			}, [], take(len, generator));
-
+			var a = reduce(push, [], take(len, generator));
 			return { value: a, done: false };
 		}
 	};
+}
+
+function push(a, x) {
+	a.push(x);
+	return a;
 }

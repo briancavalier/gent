@@ -22,10 +22,8 @@
     "generative testing"
   ],
   "devDependencies": {
-	  "jshint": "~2"
-  },
-  "dependencies": {
-    "glob": "~3.2.3"
+	  "jshint": "~2",
+	  "glob": "~3.2.3"
   },
   "author": "brian@hovercraftstudios.com",
   "license": "MIT",

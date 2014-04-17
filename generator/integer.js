@@ -1,12 +1,10 @@
-var map, number, MAX, reasonableMax;
-
-map = require('./map');
-number = require('./number');
+var map = require('./map');
+var number = require('./number');
 
 // See http://stackoverflow.com/questions/307179/what-is-javascripts-max-int-whats-the-highest-integer-value-a-number-can-go-t
-MAX = Math.pow(2, 53);
+var MAX = Math.pow(2, 53);
 
-reasonableMax = 1e3;
+var reasonableMax = 1e3;
 
 module.exports = integer;
 

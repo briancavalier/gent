@@ -1,10 +1,8 @@
-var next, integer;
-
-integer = require('./integer');
-next = require('./next');
+var integer = require('./integer');
+var next = require('./next');
 
 module.exports = function pick(list) {
-	var index = integer(list.length >>> 0);
+	var index = integer(list.length);
 	return {
 		next: function() {
 			var value = next(list[index.next().value]);

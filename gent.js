@@ -141,7 +141,7 @@ function aggregateByCategory(results, result) {
 	}
 
 	outcome.time += result.time;
-	var outcomeType = result.error != null ? outcome.fail : outcome.pass;
+	var outcomeType = result.error == null && result.value ? outcome.pass : outcome.fail;
 
 	outcomeType.push(result);
 

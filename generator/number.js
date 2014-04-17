@@ -1,9 +1,7 @@
-var random, reasonableMax, epsilon;
+var random = require('./random')();
 
-random = require('./random')();
-
-reasonableMax = 1e8;
-epsilon = Number.MIN_VALUE;
+var reasonableMax = 1e8;
+var epsilon = Number.MIN_VALUE;
 
 module.exports = number;
 
