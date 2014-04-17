@@ -10,7 +10,7 @@ module.exports = function reporter(results) {
 		var category = results[key];
 		if(category.fail.length) {
 			console.error(format(category));
-			failures[key] = (category);
+			failures[key] = category;
 		} else {
 			console.log(format(category));
 		}

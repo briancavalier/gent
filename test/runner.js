@@ -7,18 +7,19 @@ var confidence = require('../generator/confidence');
 var maxIterations = 10000;
 
 glob(process.argv[process.argv.length - 1], function(e, files) {
-	files.forEach(function(file) {
+	var failed = files.reduce(function(failures, file) {
 		file = file.replace(/\.js$/, '');
 
 		console.log(path.basename(file));
 
 		var claims = require(path.resolve(file));
-		run(claims, {});
-	});
+		return failures + run(claims, {});
+	}, 0);
+
+	process.exit(failed);
 });
 
 function run(claims, options) {
-
 	if(!options) {
 		options = {};
 	}
@@ -27,7 +28,8 @@ function run(claims, options) {
 	options.categorize = options.categorize || gent.categorize.byTest;
 	options.aggregate = options.aggregate || gent.aggregate.byCategory;
 
-	claims.forEach(function(claim) {
-		reporter(gent.test(confidence(claim, options.confidence), options));
-	});
+	return claims.reduce(function(failures, claim) {
+		var f = reporter(gent.test(confidence(claim, options.confidence), options));
+		return failures + Object.keys(f).length;
+	}, 0);
 }
