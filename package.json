@@ -1,6 +1,6 @@
 {
   "name": "gent",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Generative testing",
   "main": "gent.js",
   "directories": {
@@ -21,8 +21,10 @@
     "quick check",
     "generative testing"
   ],
+  "devDependencies": {
+	  "jshint": "~2"
+  },
   "dependencies": {
-    "jshint": "~2",
     "glob": "~3.2.3"
   },
   "author": "brian@hovercraftstudios.com",
