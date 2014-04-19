@@ -1,11 +1,10 @@
-var buster, gent, confidence, maxIterations, maxReportErrors;
+var maxIterations = 10000;
+var maxReportErrors = 10;
 
-maxIterations = 10000;
-maxReportErrors = 10;
-
-buster = require('buster');
-gent = require('../gent');
-confidence = require('../generator/confidence');
+var buster = require('buster');
+var format = buster.formatio;
+var gent = require('../gent');
+var confidence = require('../generator/confidence');
 
 buster.referee.add('validClaim', {
 	assert: assertValidClaim,
@@ -47,7 +46,7 @@ function checkGentResults(results) {
 		var category = results[key];
 		if(category.fail.length) {
 			failures = failures.concat(category.fail.map(function(failure) {
-				var args = '\n\t[' + failure.args.join(', ') + ']';
+				var args = '\n\t[' + format.ascii(failure.args) + ']';
 				if(failure.error) {
 					args += ', error: ' + failure.error;
 				}

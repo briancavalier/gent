@@ -12,32 +12,42 @@ json.object = jsonObject;
 json.array = jsonArray;
 json.key = jsonKey;
 json.value = jsonValue;
+json.valueNonNull = jsonValueNonNull;
 
 /**
  * Generates JSON-compliant objects and arrays
  * @param {number} size number of keys in each object or elements in each array
+ * @param {{next:function}=} values optional values generator
  * @returns {{next:function}} iterator over JSON objects & arrays
  */
-function json(size) {
-	return pick([jsonObject(size), jsonArray(size)]);
+function json(size, values) {
+	return pick(jsonObject(size, values), jsonArray(size, values));
 }
 
 /**
  * Generates JSON-compliant objects
  * @param {number} size number of keys in each object
+ * @param {{next:function}=} values optional values generator
  * @returns {{next:function}} iterator over JSON objects
  */
-function jsonObject(nkeys) {
-	return object(nkeys, jsonKey(), jsonValue());
+function jsonObject(nkeys, values) {
+	if(typeof values === 'undefined') {
+		values = jsonValue();
+	}
+	return object(nkeys, jsonKey(), values);
 }
 
 /**
  * Generates JSON-compliant arrays
  * @param {number} size number of elements in each array
+ * @param {{next:function}=} values optional values generator
  * @returns {{next:function}} iterator over JSON arrays
  */
-function jsonArray(len) {
-	return array(len, jsonValue());
+function jsonArray(len, values) {
+	if(typeof values === 'undefined') {
+		values = jsonValue();
+	}
+	return array(len, values);
 }
 
 /**
@@ -45,7 +55,15 @@ function jsonArray(len) {
  * @returns {{next:function}} iterator over JSON values
  */
 function jsonValue() {
-	return pick([number(), string(), bool(), null]);
+	return pick(number(), string(), bool(), null);
+}
+
+/**
+ * Generates JSON-compliant values except null: number, string, boolean
+ * @returns {{next:function}} iterator over JSON values
+ */
+function jsonValueNonNull() {
+	return pick(number(), string(), bool());
 }
 
 /**
@@ -58,5 +76,5 @@ function jsonKey() {
 
 function keyChars() {
 	// TODO: instead of skipping
-	return pick([char(32, 47), char(48, 127)]);
+	return char(' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-+=~!@#$%^&*"\'[]{}()<>|?`,.');
 }
