@@ -1,4 +1,5 @@
-var next = require('./next');
+var random = require('./random');
+var unfold = require('./unfold');
 
 /**
  * Generates boolean values
@@ -11,9 +12,9 @@ module.exports = function bool(chance) {
 		chance = 0.5;
 	}
 
-	return {
-		next: function() {
-			return { value: Math.random() < next(chance), done: false };
-		}
-	};
+	var r = random();
+
+	return unfold(function(x) {
+		return [r.next().value < x, x];
+	}, chance);
 };

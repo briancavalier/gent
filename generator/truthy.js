@@ -10,9 +10,9 @@ var string = require('./string');
 module.exports = function() {
 	return pick([
 		true,
-		pick([integer.positive(), integer.negative()]),
-		pick([number.positive(), number.negative()]),
+		pick(integer.positive(), integer.negative()),
+		pick(number.positive(), number.negative()),
 		string(integer(1, 10)),
-		pick([Infinity, -Infinity])
+		pick(Infinity, -Infinity)
 	]);
 };

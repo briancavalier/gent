@@ -45,15 +45,17 @@ function number(min, max) {
 }
 
 function generate(min, max) {
+	var range;
 	if(min > max) {
-		var tmp = max;
-		max = min;
-		min = tmp;
+		range = min - max;
+		min = max;
+	} else {
+		range = max - min;
 	}
 
 	return {
 		next: function() {
-			var value = min + (random.next().value * (max - min));
+			var value = min + (random.next().value * range);
 			return { value: value, done: false };
 		}
 	};

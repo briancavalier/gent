@@ -1,3 +1,4 @@
+var unfold = require('./unfold');
 var next = require('./next');
 
 module.exports = counter;
@@ -11,12 +12,7 @@ module.exports = counter;
 function counter(start, step) {
 	var i = arguments.length < 1 ? 1 : start;
 	var s = arguments.length < 2 ? 1 : step;
-
-	return {
-		next: function() {
-			var result = { done: false, value: i };
-			i += next(s);
-			return result;
-		}
-	};
+	return unfold(function(x) {
+		return [x, x+next(s)];
+	}, i);
 }

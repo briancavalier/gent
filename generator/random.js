@@ -1,11 +1,12 @@
+var unfold = require('./unfold');
 /**
  * Default infinite random number iterator
  * @returns {{next: Function}}
  */
 module.exports = function() {
-	return {
-		next: function() {
-			return { done: false, value: Math.random() };
-		}
-	};
+	return unfold(nextValue, Math.random);
 };
+
+function nextValue(f) {
+	return [f(), f];
+}

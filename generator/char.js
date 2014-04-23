@@ -1,5 +1,6 @@
 var integer = require('./integer');
 var pick = require('./pick');
+var map = require('./map');
 
 /**
  * Generator character (string length 1) values
@@ -28,13 +29,5 @@ function charIterator(i, j) {
 			typeof i === 'number' ? i : i.charCodeAt(0),
 			typeof j === 'number' ? j : j.charCodeAt(0)+1);
 
-	return {
-		next: function () {
-			var val = index.next().value;
-			return {
-				done: false,
-				value: String.fromCharCode(val)
-			};
-		}
-	};
+	return map(String.fromCharCode, index);
 }

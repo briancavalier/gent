@@ -1,4 +1,5 @@
 var integer = require('./integer');
+var unfold = require('./unfold');
 var next = require('./next');
 var slice = Array.prototype.slice;
 
@@ -8,13 +9,9 @@ module.exports = function pick(list) {
 	}
 
 	var index = integer(list.length);
-
-	return {
-		next: function() {
-			var value = next(list[index.next().value]);
-			return { value: value, done: false };
-		}
-	};
+	return unfold(function(list) {
+		return [next(list[index.next().value]), list];
+	}, list);
 };
 
 function isArrayLike(a) {
