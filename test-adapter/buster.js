@@ -4,7 +4,7 @@ var maxReportErrors = 10;
 var buster = require('buster');
 var format = buster.formatio;
 var gent = require('../gent');
-var confidence = require('../generator/confidence');
+var assertion = require('./assertion');
 
 buster.referee.add('validClaim', {
 	assert: assertValidClaim,
@@ -26,34 +26,31 @@ function assertClaim() {
 }
 
 function assertValidClaim(claim, options) {
-	var failures = checkGentResults(gent.test(confidence(claim, options.confidence), options));
-
-	var count = failures.length;
-	if(count) {
-
-		this.failures = failures.slice(0, maxReportErrors).join('');
-		if(count > maxReportErrors) {
-			this.failures += '\n\t... and ' + (count-10) + ' more ...';
-		}
-		return false;
+	var self = this;
+	if(!options) {
+		options = {};
 	}
 
-	return true;
-}
+	if(typeof options.handleFailures === 'undefined') {
+		options.handleFailures = handleFailures;
+	}
 
-function checkGentResults(results) {
-	return Object.keys(results).reduce(function(failures, key) {
-		var category = results[key];
-		if(category.fail.length) {
-			failures = failures.concat(category.fail.map(function(failure) {
-				var args = '\n\t[' + format.ascii(failure.args) + ']';
-				if(failure.error) {
-					args += ', error: ' + failure.error;
-				}
-				return args;
-			}));
+	if(typeof options.formatArgs === 'undefined') {
+		options.formatArgs = function(args) {
+			return format.ascii(args);
+		}
+	}
+
+	return assertion(claim, options);
+
+	function handleFailures(failures) {
+		var count = failures.length;
+		self.failures = failures.slice(0, maxReportErrors).join('');
+
+		if(count > maxReportErrors) {
+			self.failures += '\n\t... and ' + (count-maxReportErrors) + ' more ...';
 		}
 
-		return failures;
-	}, []);
+		return false;
+	}
 }
