@@ -1,9 +1,8 @@
-var red, green, reset, lightgray, cyan;
-lightgray  = '\u001b[22m\u001b[37m';
-cyan  = '\u001b[36m';
-red   = '\u001b[31m';
-green = '\u001b[32m';
-reset = '\u001b[0m';
+var lightgray  = '\u001b[22m\u001b[37m';
+var cyan  = '\u001b[36m';
+var red   = '\u001b[31m';
+var green = '\u001b[32m';
+var reset = '\u001b[0m';
 
 module.exports = function reporter(results) {
 	var failures = Object.keys(results).reduce(function(failures, key) {

@@ -3,9 +3,9 @@ var maxReportErrors = 10;
 var gent = require('../gent');
 var confidence = require('../generator/confidence');
 
-module.exports = assertValidClaim;
+module.exports = check;
 
-function assertValidClaim(claim, options) {
+function check(claim, options) {
 	if(!options) {
 		options = {};
 	}
@@ -16,39 +16,51 @@ function assertValidClaim(claim, options) {
 	return handleResults(results, options);
 }
 
-function getFailures (results, formatArgs) {
+// TODO: Consider extracting to another module
+function defaultHandleResults(results, options) {
+	var handleFailures = options.handleFailures || throwClaimError;
+
+	return handleFailures(getFailures(results));
+}
+
+function getFailures (results) {
 	return Object.keys(results).reduce(function (failures, key) {
 		var category = results[key];
 		if (category.fail.length) {
-			failures = failures.concat(category.fail.map(function (failure) {
-				var args = '\n\t[' + formatArgs(failure.args) + ']';
-				if (failure.error) {
-					args += ', error: ' + failure.error;
-				}
-				return args;
-			}));
+			failures[key] = category.fail;
 		}
 
 		return failures;
-	}, []);
-}
-
-function defaultHandleResults(results, options) {
-	var formatArgs = options.formatArgs || defaultFormatArgs;
-	var handleFailures = options.handleFailures || throwClaimError;
-
-	if(typeof options.formatArgs !== 'function') {
-		formatArgs = defaultFormatArgs;
-	}
-
-	var failures = getFailures(results, formatArgs);
-
-	return failures.length ? handleFailures(failures) : true;
+	}, {});
 }
 
 function throwClaimError(failures) {
-	var count = failures.length;
-	var msg = failures.slice(0, maxReportErrors).join('');
+	var keys = Object.keys(failures);
+	var count = keys.length;
+	if(count === 0) {
+		return failures;
+	}
+
+	var msg = keys.slice(0, maxReportErrors).map(function(k) {
+		var len = failures[k].length;
+
+		var msg = failures[k].slice(0, maxReportErrors).map(function (failure) {
+			var msg = JSON.stringify(failure.args);
+			if (failure.error) {
+				msg += ', error: ' + failure.error;
+			}
+
+			return msg;
+		});
+
+		if (len > maxReportErrors) {
+			msg += ' and ' + (len - maxReportErrors) + ' more ...';
+		}
+
+		return msg;
+	}).join('');
+
+
 	if (count > maxReportErrors) {
 		msg += '\n\t... and ' + (count - maxReportErrors) + ' more ...';
 	}
@@ -67,7 +79,3 @@ function ClaimFailedError(msg) {
 
 ClaimFailedError.prototype = Object.create(Error.prototype);
 ClaimFailedError.prototype.constructor = ClaimFailedError;
-
-function defaultFormatArgs(args) {
-	return args.join(', ');
-}

@@ -2,9 +2,8 @@ var maxIterations = 10000;
 var maxReportErrors = 10;
 
 var buster = require('buster');
-var format = buster.formatio;
 var gent = require('../gent');
-var assertion = require('./assertion');
+var check = require('./check');
 
 buster.referee.add('validClaim', {
 	assert: assertValidClaim,
@@ -35,13 +34,7 @@ function assertValidClaim(claim, options) {
 		options.handleFailures = handleFailures;
 	}
 
-	if(typeof options.formatArgs === 'undefined') {
-		options.formatArgs = function(args) {
-			return format.ascii(args);
-		}
-	}
-
-	return assertion(claim, options);
+	return check(claim, options);
 
 	function handleFailures(failures) {
 		var count = failures.length;
