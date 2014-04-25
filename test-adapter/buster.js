@@ -38,7 +38,7 @@ function assertValidClaim(claim, options) {
 
 	function handleFailures(failures) {
 		var count = failures.length;
-		
+
 		if(count === 0) {
 			return true;
 		}
