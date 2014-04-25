@@ -38,7 +38,14 @@ function assertValidClaim(claim, options) {
 
 	function handleFailures(failures) {
 		var count = failures.length;
-		self.failures = failures.slice(0, maxReportErrors).join('');
+		
+		if(count === 0) {
+			return true;
+		}
+
+		self.failures = Object.keys(failures).slice(0, maxReportErrors).map(function(k) {
+			return failures[k];
+		}).join('');
 
 		if(count > maxReportErrors) {
 			self.failures += '\n\t... and ' + (count-maxReportErrors) + ' more ...';

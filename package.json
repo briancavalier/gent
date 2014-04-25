@@ -1,6 +1,6 @@
 {
   "name": "gent",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Generative testing",
   "main": "gent.js",
   "directories": {
