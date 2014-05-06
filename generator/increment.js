@@ -1,18 +1,17 @@
 var unfold = require('./unfold');
 var next = require('./next');
 
-module.exports = counter;
-
 /**
- * Generates the sequence of numbers: start, start+step, start+step+step, etc.
+ * Generates the infinite sequence of numbers:
+ * start, start+step, start+(2*step), start+(3*step), ...
  * @param {number} start
  * @param {number|{next:function}} step step value or iterator of step values
- * @returns {{next:function}} iterator of start, start+step, start+step+step,
+ * @returns {{next:function}} iterator of numbers
  */
-function counter(start, step) {
-	var i = arguments.length < 1 ? 1 : start;
+module.exports = function increment(start, step) {
+	var i = arguments.length < 1 ? 0 : start;
 	var s = arguments.length < 2 ? 1 : step;
 	return unfold(function(x) {
 		return [x, x+next(s)];
 	}, i);
-}
+};

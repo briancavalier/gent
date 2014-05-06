@@ -1,12 +1,29 @@
-var bind = Function.prototype.bind;
-var uncurryThis = bind.bind(bind.call);
-var slice = uncurryThis([].slice);
-
 var take = require('./generator/take');
 var next = require('./generator/next');
 var reduce = require('./generator/reduce');
 
-exports.claim = claim;
+exports.claim     = claim;
+
+exports.any       = require('./generator/any');
+exports.truthy    = require('./generator/truthy');
+exports.falsy     = require('./generator/falsy');
+
+exports.array     = require('./generator/array');
+exports.bool      = require('./generator/bool');
+exports.char      = require('./generator/char');
+exports.integer   = require('./generator/integer');
+exports.number    = require('./generator/number');
+exports.increment = require('./generator/increment');
+exports.object    = require('./generator/object');
+exports.string    = require('./generator/string');
+
+exports.sequence  = require('./generator/sequence');
+exports.pick      = require('./generator/pick');
+
+exports.take      = take;
+exports.next      = next;
+exports.reduce    = reduce;
+
 exports.test = test;
 exports.categorize = categorize;
 exports.categorize.byTest = categorize.bind(void 0, categorizeByTest);
@@ -15,32 +32,14 @@ exports.categorize.byArgs = categorize.bind(void 0, categorizeByArgs);
 exports.aggregate = aggregate;
 exports.aggregate.byCategory = aggregate.bind(void 0, aggregateByCategory);
 
-exports.any      = require('./generator/any');
-exports.truthy   = require('./generator/truthy');
-exports.falsy    = require('./generator/falsy');
-
-exports.array    = require('./generator/array');
-exports.bool     = require('./generator/bool');
-exports.char     = require('./generator/char');
-exports.integer  = require('./generator/integer');
-exports.number   = require('./generator/number');
-exports.object   = require('./generator/object');
-exports.string   = require('./generator/string');
-
-exports.sequence = require('./generator/sequence');
-exports.pick     = require('./generator/pick');
-
-exports.take     = take;
-exports.next     = next;
-exports.reduce   = reduce;
-
 var claimId = 0;
+var slice = Array.prototype.slice;
 
 function claim() {
 
 	var args, name, assertion, argGenerators;
 
-	args = slice(arguments);
+	args = slice.call(arguments);
 	name = args[0];
 
 	if(typeof name != 'string') {

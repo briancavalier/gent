@@ -44,17 +44,17 @@ function throwClaimError(failures) {
 	var msg = keys.slice(0, maxReportErrors).map(function(k) {
 		var len = failures[k].length;
 
-		var msg = failures[k].slice(0, maxReportErrors).map(function (failure) {
-			var msg = JSON.stringify(failure.args);
-			if (failure.error) {
-				msg += ', error: ' + failure.error;
-			}
+		var msg = 'Claim not upheld for arguments\n';
+		msg += failures[k].slice(0, maxReportErrors).map(function (failure) {
+			var msg = failure.args.map(JSON.stringify).join(', ');
+			return failure.error
+				? msg + ', error: ' + failure.error
+				: msg;
 
-			return msg;
-		});
+		}).join('\n');
 
 		if (len > maxReportErrors) {
-			msg += ' and ' + (len - maxReportErrors) + ' more ...';
+			msg += '\n... and ' + (len - maxReportErrors) + ' more ...';
 		}
 
 		return msg;
@@ -62,7 +62,7 @@ function throwClaimError(failures) {
 
 
 	if (count > maxReportErrors) {
-		msg += '\n\t... and ' + (count - maxReportErrors) + ' more ...';
+		msg += '\n... and ' + (count - maxReportErrors) + ' more ...';
 	}
 
 	throw new ClaimFailedError(msg);

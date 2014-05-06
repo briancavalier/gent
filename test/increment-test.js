@@ -1,12 +1,12 @@
 var gent = require('../gent');
-var counter = require('../generator/counter');
+var increment = require('../generator/increment');
 var integer = require('../generator/integer');
 var claim = gent.claim;
 
 module.exports = [
-	claim('generates ordinals by default', makeAssertion(1, 1), counter()),
-	claim('generates counter with start and step', makeAssertion(2, 10), counter(2, 10)),
-	claim('allows step generator', makeStepRangeAssertion(3, 5, 10), counter(3, integer(5, 10)))
+	claim('generates ordinals by default', makeAssertion(0, 1), increment()),
+	claim('generates increment with start and step', makeAssertion(2, 10), increment(2, 10)),
+	claim('allows step generator', makeStepRangeAssertion(3, 5, 10), increment(3, integer(5, 10)))
 ];
 
 function makeAssertion(start, step) {
