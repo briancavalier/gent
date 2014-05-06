@@ -1,7 +1,7 @@
 {
   "name": "gent",
   "main": "gent.js",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "homepage": "https://github.com/briancavalier/gent",
   "authors": [
     "Brian Cavalier <brian@hovercraftstudios.com>"
