@@ -37,14 +37,15 @@ function assertValidClaim(claim, options) {
 	return check(claim, options);
 
 	function handleFailures(failures) {
-		var count = failures.length;
+		var keys = Object.keys(failures);
+		var count = keys.length;
 
 		if(count === 0) {
 			return true;
 		}
 
-		self.failures = Object.keys(failures).slice(0, maxReportErrors).map(function(k) {
-			return failures[k];
+		self.failures = keys.slice(0, maxReportErrors).map(function(k) {
+			return buster.formatio.ascii(failures[k]);
 		}).join('');
 
 		if(count > maxReportErrors) {
