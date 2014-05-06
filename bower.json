@@ -1,0 +1,30 @@
+{
+  "name": "gent",
+  "main": "gent.js",
+  "version": "0.6.1",
+  "homepage": "https://github.com/briancavalier/gent",
+  "authors": [
+    "Brian Cavalier <brian@hovercraftstudios.com>"
+  ],
+  "description": "Generative testing",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "test",
+    "testing",
+    "tdd",
+    "quickcheck",
+    "quick check",
+    "generative testing"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "package.json"
+  ]
+}
