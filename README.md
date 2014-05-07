@@ -135,54 +135,95 @@ var returnsMaxValue = gent.claim('Math.max returns max value', function(x, y) {
 #### gent.number
 
 ```js
+// Random decimal numbers from 0 to 1e8
 gent.number();
-gent.number(min);
+
+// Random decimal numbers from 0 to max
+gent.number(max);
+
+// Random decimal numbers from min to max
 gent.number(min, max);
 ```
+
+Generate random decimal numbers
 
 #### gent.number.positive
 
 ```js
+// Random decimal numbers from Number.MIN_VALUE to 1e8
 gent.number.positive();
+
+// Random decimal numbers from Number.MIN_VALUE to max
 gent.number.positive(max);
 ```
+
+Generate random positive decimal numbers
 
 #### gent.number.negative
 
 ```js
+// Random decimal numbers from -Number.MIN_VALUE to -1e8
 gent.number.negative();
+
+// Random decimal numbers from -Number.MIN_VALUE to -Number.MAX_VALUE
 gent.number.negative(min);
 ```
+
+Generate random negative decimal numbers
 
 #### gent.integer
 
 ```js
+// Random integers from 0 to 1000
 gent.integer();
-gent.integer(min);
+
+// Random integers from 0 to max
+gent.integer(max);
+
+// Random integers from min to max
 gent.integer(min, max);
 ```
+
+Generate random integers
 
 #### gent.integer.positive
 
 ```js
+// Random integers from 1 to 1000
 gent.integer.positive();
+
+// Random integers from 1 to max
 gent.integer.positive(max);
 ```
+
+Generate random positive integers
 
 #### gent.integer.negative
 
 ```js
+// Random integers from -1 to -1000
 gent.integer.negative();
+
+// Random integers from -1 to min
 gent.integer.negative(min);
 ```
 
-#### gent.counter
+Generate random negative integers
+
+#### gent.increment
 
 ```js
-gent.counter();
-gent.counter(start);
-gent.counter(start, step);
+// ordinals 0, 1, 2, ...
+gent.increment();
+
+// start, start+1, start+2, ...
+gent.increment(start);
+
+// start, start+step, start+(2*step), ...
+gent.increment(start, step);
 ```
+
+Generate incrementing numbers.  To generate decrementing numbers, use a negative `step`
 
 #### gent.string
 
